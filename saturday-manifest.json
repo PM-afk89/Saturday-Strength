@@ -1,0 +1,12 @@
+{
+  "name": "Saturday Strength",
+  "short_name": "Saturday",
+  "start_url": "./saturday.html",
+  "scope": "./saturday.html",
+  "display": "standalone",
+  "background_color": "#111318",
+  "theme_color": "#111318",
+  "icons": [
+    { "src": "saturday-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
