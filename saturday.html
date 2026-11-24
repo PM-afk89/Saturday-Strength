@@ -135,7 +135,7 @@
       <input type="file" id="importFile" accept=".json" style="display:none;">
     </label>
     <div class="section-title">About</div>
-    <div style="font-size:13px;color:var(--sub);">A once-a-week full-body plan that alternates Week A (lower-body focus) and Week B (upper-body focus). Each lift repeats every two weeks so you can beat last time: when you hit 12 reps on every set, the app suggests a small weight bump. Swap any exercise from its muscle group's list, or add your own. Tap 📤 to share a workout as a clean list.</div>
+    <div style="font-size:13px;color:var(--sub);">A once-a-week full-body plan that alternates Week A (full body, legs focus) and Week B (full body, upper focus). Each lift repeats every two weeks so you can beat last time: when you hit 12 reps on every set, the app suggests a small weight bump. Swap any exercise from its muscle group's list, or add your own. Tap 📤 to share a workout as a clean list.</div>
   </div>
 </div>
 
@@ -185,7 +185,7 @@
 <script>
 /* ---------------- DATA ---------------- */
 const ROUTINE = {
-  a: { label:"Week A · Lower", categories:[
+  a: { label:"Week A · Legs focus", categories:[
     {name:"Glutes", count:2, anchor:["Smith Machine Hip Thrust"], pool:["Cable Glute Kickback (Straight)","Cable Kickback, External Rotation (Glute Med)","Cable Lateral Kick (Glute Med)","Cable Pull-Through","Smith Machine Lunge, Front Foot Elevated"]},
     {name:"Quads", count:2, pool:["Smith Machine Squat","Leg Extension","Belt Squat","Bulgarian Split Squat (Smith)"]},
     {name:"Hamstrings", count:1, pool:["Lying Leg Curl","Romanian Deadlift (Smith)","Nordic Hamstring Curl"]},
@@ -193,7 +193,7 @@ const ROUTINE = {
     {name:"Back", count:1, pool:["Wide-Grip Lat Pulldown","Neutral-Grip Lat Pulldown","Close-Grip Cable Row","Wide-Grip Cable Row","Chest-Supported Row","Half-Kneeling 1-Arm Lat Pulldown","Cross-Body Lat Pull-Around","Smith Machine Shrugs","Rope Face-Pull, Standing"]},
     {name:"Shoulders", count:1, pool:["Cable Lateral Raise","Overhead Press (Smith Machine)","Cable Y-Raise","Behind-The-Back Cuffed Lateral Raise","Reverse Cable Crossover (Rear Delt)","Rope Face-Pull, Seated/Lying (Rear Delt)"]}
   ]},
-  b: { label:"Week B · Upper", categories:[
+  b: { label:"Week B · Upper focus", categories:[
     {name:"Chest", count:2, pool:["Incline Smith Machine Press","Seated Cable Pec Flye","Smith Machine Flat Bench Press","Cable Crossovers","Low-to-High Cable Fly","Cable Press-Around"]},
     {name:"Back", count:2, pool:["Neutral-Grip Lat Pulldown","Close-Grip Cable Row","Wide-Grip Lat Pulldown","Wide-Grip Cable Row","Chest-Supported Row","Half-Kneeling 1-Arm Lat Pulldown","Cross-Body Lat Pull-Around","Smith Machine Shrugs","Rope Face-Pull, Standing"]},
     {name:"Shoulders", count:1, pool:["Overhead Press (Smith Machine)","Cable Lateral Raise","Cable Y-Raise","Behind-The-Back Cuffed Lateral Raise","Reverse Cable Crossover (Rear Delt)","Rope Face-Pull, Seated/Lying (Rear Delt)"]},
@@ -360,7 +360,7 @@ function renderTabs(){
   if(wl){
     const upNext = nextDayAfter(settings.lastDay);
     wl.textContent = (currentDay === upNext)
-      ? "This Saturday: Week " + ((settings.sessions||0)+1) + " — " + ROUTINE[currentDay].label.replace("Week ","")
+      ? "This Saturday: Week " + ((settings.sessions||0)+1) + " · full body, " + ROUTINE[currentDay].label.split(" · ")[1].toLowerCase()
       : "Viewing " + ROUTINE[currentDay].label + " (not up next)";
   }
 }
@@ -806,7 +806,7 @@ function fmtDate(iso){
   catch(e){ return iso.slice(0,10); }
 }
 function fmtW(x){ return (Math.round(x*10)/10).toString(); }
-function focusOf(sess){ return sess.day && ROUTINE[sess.day] ? ROUTINE[sess.day].label.split(" · ")[1] + " focus" : ""; }
+function focusOf(sess){ return sess.day && ROUTINE[sess.day] ? ROUTINE[sess.day].label.split(" · ")[1] : ""; }
 function detailText(it){
   const same = it.weights.every(w => w === it.weights[0]);
   return same ? fmtW(it.weights[0]) + " lb  ×  " + it.reps.join("  ·  ")
