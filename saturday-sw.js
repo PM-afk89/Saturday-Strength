@@ -1,5 +1,5 @@
-const CACHE = "saturday-v1";
-const ASSETS = ["./saturday.html", "./saturday-manifest.json", "./saturday-icon.png"];
+const CACHE = "saturday-v2";
+const ASSETS = ["./saturday.html", "./saturday-manifest.json", "./saturday-arm.png"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).catch(() => {}));
   self.skipWaiting();
